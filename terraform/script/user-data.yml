@@ -1,0 +1,40 @@
+
+#cloud-config
+
+hostname: webserver-devops-MdsFelpe
+fqdn: webserver-devops-MdsFelpe.local
+
+
+package_update: true
+package_upgrade: true
+
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - docker.io
+  - nginx
+
+
+groups:
+  - docker
+
+system_info:
+  default_user:
+    groups: [docker]
+
+# Ativação dos serviços necessários
+runcmd:
+  
+  - systemctl enable nginx
+  - systemctl start nginx
+
+  
+  - systemctl enable docker
+  - systemctl start docker
+
+  
+  - echo "<h1>Projeto DevOps - Cloud-Init & Terraform com Sucesso!</h1>" > /var/www/html/index.html
